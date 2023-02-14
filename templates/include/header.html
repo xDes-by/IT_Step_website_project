@@ -1,0 +1,54 @@
+{% load static %}
+
+<header class="header">
+    <div class="logo"></div>
+    {% comment %} <div class="search-input-header">
+        <input class="search-input" type="text" placeholder="Search...">
+        <img class="search-icon" src="{% static 'images/find.png' %}" alt="logo" draggable="false">
+    </div> {% endcomment %}
+    <div class="navigator">
+        <a href="/"> <button class="btn" id="home-btn"></button></a> 
+
+        <div class="btn" id="card-btn">
+            <div class='card-count'>
+                {% if product_count > 0 %}
+                    {{product_count}}
+                {% else %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card-items hidden">
+            <ul class="">
+                {% for prod in products %}
+                <li>
+                    {{ prod.product.name }} - {{ prod.count }} шт.
+                    цена: {{ prod.price_per_item }} BYN.
+                    <a class="delete-item" href="" data-product_id="{{ prod.id }}"></a>
+                </li>
+            {% endfor %}
+            </ul>
+            {% if user.is_authenticated %}
+                <a href="/order"><button class="start-order auth">Перейти для покупки</button></a>
+            {% else %}
+                <a href="http://127.0.0.1:8000/accounts/steam/login/"><button class="start-order">Войти для покупки</button></a>
+            {% endif %}
+        </div>
+        
+        <a id="open-shop-btn" href="/shop"><button class="btn" id="open-shop-btn"></button></a>
+        <button class="btn" id="dark-btn"></button>
+
+        {% if user.is_authenticated %}
+          <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            <button class="btn" id="logout" type="submit"></button>
+          </form>
+          {% else %}
+            <form action="http://127.0.0.1:8000/accounts/steam/login/">
+              <button class="btn" id="login" type="submit"></button>
+            </form>
+          {% endif %}
+
+        <button class="btn" id="shop"> <a href="/admin">админка</a> </button>
+    </div>  
+</header>

@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Store</title>
+    <link rel="stylesheet" href="{% static 'css/style-white.css' %}" id="theme-link">
+    <link rel="shortcut icon" href="{% static 'images/logo-for-white.png' %}" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat:wght@400;700&display=swap">
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+</head>
+<body>
+
+    {% include "include/header.html" %}
+
+    {% block content %}
+    {% endblock content%}
+
+    {% comment %} {% include "include/footer.html" %} {% endcomment %}
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

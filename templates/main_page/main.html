@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content%}
+    <div class="container">
+        <div class="bg-rotate"></div>
+        <div class="left-menu">
+            <div class="main-rotate-circle">
+                {% for cat in categories %}
+                    <div class="mrc-item" id="mrc-{{forloop.counter}}"><img src='{{ cat.image.url }}' alt=""></div>
+                {% endfor %} 
+            </div>
+            <div class="blur-rotate-circle">
+                {% for cat in categories %}
+                    <div class="blur-mrc-item" id="blur-mrc-{{forloop.counter}}"><img src="{{ cat.image.url }}" alt=""></div>
+                {% endfor %} 
+            </div>
+        </div>
+
+        <div class="right-menu">
+            {% for t in top %}
+                <div class="sub-mrc">
+                    {% for i in t %}
+                    <div class="slide-item" data-cid="{{ i.category.id }}">
+                        <img src="{{ i.image.url }}" alt="">
+                        <div class="slide-item-text">
+                            <b>{{i.name}}</b>
+                            <p>{{i.description}}</p>
+                            <b>{{i.price}}</b>
+                        </div>
+                     </div>
+                    {%endfor%}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="menu">
+            <button class="btn" id="back"><img src="{% static 'images/arrow_left.png' %}" alt=""></button>
+            <button class="btn" id="shop"> <a href="shop/">SHOP</a> </button>
+            <button class="btn" id="next"><img src="{% static 'images/arrow_right.png' %}" alt=""></button>
+        </div>
+    </div>
+{% endblock%}    
+
+
+<form action="{% url 'filter' %}" method="get" name="filter">
+    <div class="filter-container">
+        <div class="filters-box">
+            <h3>КАТЕГОРИИ</h3>
+            {% for i in view.get_categoty %}
+                <li><input type="checkbox" id="checkbox" name='category' value='{{i.id}}'> {{i.name}}</li>
+            {% endfor %} 
+        </div>
+        <div class="filters-box">
+            <h3>ЭКРАН</h3>
+            {% for i in view.get_screens %}
+                <li><input type="checkbox" id="checkbox" name='screen' value='{{i}}'> {{i}}</li>
+            {% endfor %} 
+        </div>
+    </div>
+    <button type="submit">Sort</button>
+</form>

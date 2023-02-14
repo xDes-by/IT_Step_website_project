@@ -1,0 +1,18 @@
+{% load static %}
+
+<header class="header">
+    <div class="logo"></div>
+    <div class="search-input-header">
+        <input class="search-input" type="text" placeholder="Search...">
+        <img class="search-icon" src="{% static 'images/find.png' %}" alt="logo" draggable="false">
+    </div>
+    <div class="navigator">
+        <a href="/">
+            <button class="btn" id="home-btn"></button>
+        </a> 
+        <button class="btn" id="card-btn"></button>
+        <button class="btn" id="dark-btn"></button>
+
+        <button class="btn" id="shop"> <a href="/admin">админка</a> </button>
+    </div>  
+</header>

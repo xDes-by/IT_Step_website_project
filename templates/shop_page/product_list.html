@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Store</title>
+    <link rel="stylesheet" href="{% static 'css/style-white.css' %}" id="theme-link">
+    <link rel="shortcut icon" href="{% static 'images/logo-for-white.png' %}" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat:wght@400;700&display=swap">
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    {% include "include/header.html" %}
+
+    <div class="content_container">
+        <form action="{% url 'filter' %}" method="get" name="filter">
+            <div class="filter-container">
+                <div class="filters-box">
+                    <h3>КАТЕГОРИИ</h3>
+                    {% for i in view.get_categoty %}
+                        <li><input type="checkbox" id="checkbox" name='category' value='{{i.id}}'> {{i.name}}</li>
+                    {% endfor %} 
+                </div>
+                <div class="filters-box">
+                    <h3>ЭКРАН</h3>
+                    {% for i in view.get_screens %}
+                        <li><input type="checkbox" id="checkbox" name='screen' value='{{i}}'> {{i}}</li>
+                    {% endfor %} 
+                </div>
+            </div>
+            <button type="submit">Sort</button>
+        </form>
+
+        <div class="products-container">
+            {% for pr in product_list %}
+            {% if pr.count > 0 %}
+            <div class="product-item-cart">
+                <div class='product-item-description'>
+                    <img class="img-item-cart" src="{{ pr.image.url }}" alt="">
+                    <b>{{ pr.name }}</b> 
+                    <p>{{ pr.description }}</p>
+                </div>
+                <div class='product-item-price'>
+                    <b>Цена: {{ pr.price }} </b>
+                    <form class="add_cart" name="add_cart" action="{% url 'add_to_cart' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="submit_btn" data-pid = "{{ pr.id }}" data-name ="{{ pr.name }}" data-price ="{{ pr.price }}"> Add Cart </button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %} 
+        </div>
+        {% include "include/pagination.html" %}
+    </div>
+
+    
+    <script src="{% static 'js/script.js' %}"></script> 
+</body>
+</html>
+
+{% comment %} action="." method="POST" name="add_cart" {% endcomment %}

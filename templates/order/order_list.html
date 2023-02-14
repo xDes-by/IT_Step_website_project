@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content%}
+    <div class="container">
+        <div class="order-shopping-cart">
+            {% for item in products_in_cart %}
+                <div class="order-item scrollbar">
+
+                    <button class="btn del-item" data-pid = "{{ item.product.id }}" data-name ="{{ item.product.name }}" data-price ="{{ item.product.price }}" data-remove ="del">
+                        <img src="{% static 'images/del.svg' %}" alt="" />
+                    </button>
+
+                    <div class="order-image">
+                        <img class="img-item-cart" src="{{ item.product.image.url }}" alt="">
+                    </div>
+            
+                    <div class="order-description">
+                        <b>{{item.product.name}}</b>
+                        <span>{{item.product.color}}</span>
+                    </div>
+            
+                    <div class="order-quantity">
+                        <button class="btn minus-btn" data-pid = "{{ item.product.id }}" data-name ="{{ item.product.name }}" data-price ="{{ item.product.price }}" data-del ="del">
+                            <img src="{% static 'images/minus.svg' %}" alt="" />
+                        </button>
+                        <input type="text" name="name" value="{{item.count}}" readonly>
+                        <form class="add_cart" name="add_cart" action="{% url 'add_to_cart' %}">
+                            {% csrf_token %}
+                            <button class="btn plus-btn" data-pid = "{{ item.product.id }}" data-name ="{{ item.product.name }}" data-price ="{{ item.product.price }}" data-count="{{item.product.count}}">
+                                <img src="{% static 'images/plus.svg' %}" alt="" />
+                            </button>  
+                        </form>
+                    </div>
+                    <div class="order-total-price">{{item.total_price}}</div>
+                </div>
+            {% endfor %}   
+        </div>
+        <span class="total-item-price">Total price: 99999.99</span> 
+
+        <div class="client-data">
+            <div class="client-data-top">
+                <img class="ava" src={{social_account.extra_data.avatarfull}} alt="Avatar">
+                <div>
+                    <b>{{social_account.extra_data.personaname}}</b>
+                    <span>{{social_account.extra_data.steamid}}</span>
+                </div>
+            </div>
+                <form class="client-data-bottom" name="create_order" action="{% url 'create_order' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-data">
+                        {% for f in form %}
+                        <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }} </p>
+                        <div class="form-error">{{ f.errors }}</div>
+                        {% endfor %}
+                    </div>
+                    <input class='btn' type="submit" value="Заказать" user-id="{{social_account.extra_data.realname}}" products = {{products_in_cart}}>
+                </form>
+        </div>
+    </div>
+{% endblock%}    
