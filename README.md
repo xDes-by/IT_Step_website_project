@@ -4,8 +4,8 @@
 * Django 4.1.4+
 * Pillow 9.3.0+
 
-# Run #
-From folder mysite
+# Run from folder#
+
 * python3 --version
 * pip3 install -r requirements.txt
 * python manage.py runserver
