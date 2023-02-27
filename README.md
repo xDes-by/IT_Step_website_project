@@ -4,7 +4,7 @@
 * Django 4.1.4+
 * Pillow 9.3.0+
 
-# Run from folder#
+# Run from folder #
 
 * python3 --version
 * pip3 install -r requirements.txt
