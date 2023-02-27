@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('products', '0001_initial'),
-        ('socialaccount', '0004_openidnonce_openidstore'),
+        # ('socialaccount', '0004_openidnonce_openidstore'),
     ]
 
     operations = [
